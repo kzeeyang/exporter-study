@@ -125,7 +125,7 @@ func NewExporter(uri string, insecure bool) *Traffic_exporter {
 			Name:      "mem",
 			Help:      "The current percentage traffic server used memeory.",
 		}),
-		reqs: prometheus.NewDesc(prometheus.BuildFQName(namespace, "", "hit"),
+		reqs: prometheus.NewDesc(prometheus.BuildFQName(namespace, "", "reqs"),
 			"The total request in 5 minutes.",
 			nil,
 			nil),
@@ -133,15 +133,15 @@ func NewExporter(uri string, insecure bool) *Traffic_exporter {
 			"The total receive bytes in 5 minutes.",
 			nil,
 			nil),
-		tx: prometheus.NewDesc(prometheus.BuildFQName(namespace, "", "rx"),
+		tx: prometheus.NewDesc(prometheus.BuildFQName(namespace, "", "tx"),
 			"The total transport bytes in 5 minutes.",
 			nil,
 			nil),
-		tpr: prometheus.NewDesc(prometheus.BuildFQName(namespace, "", "rx"),
+		tpr: prometheus.NewDesc(prometheus.BuildFQName(namespace, "", "tpr"),
 			"Unknown.",
 			nil,
 			nil),
-		uptime: prometheus.NewDesc(prometheus.BuildFQName(namespace, "", "rx"),
+		uptime: prometheus.NewDesc(prometheus.BuildFQName(namespace, "", "uptime"),
 			"Current uptime in seconds (*)",
 			nil,
 			nil),
@@ -235,14 +235,14 @@ func main() {
 	flag.Parse()
 
 	if *showVersion {
-		fmt.Fprintln(os.Stdout, version.Print("apache_exporter"))
+		fmt.Fprintln(os.Stdout, version.Print("traffic_exporter"))
 		os.Exit(0)
 	}
 	exporter := NewExporter(*scrapeURI, *insecure)
 	prometheus.MustRegister(exporter)
-	prometheus.MustRegister(version.NewCollector("apache_exporter"))
+	prometheus.MustRegister(version.NewCollector("traffic_exporter"))
 
-	log.Infoln("Starting apache_exporter", version.Info())
+	log.Infoln("Starting traffic_exporter", version.Info())
 	log.Infoln("Build context", version.BuildContext())
 	log.Infof("Starting Server: %s", *listeningAddress)
 
