@@ -253,7 +253,7 @@ func main() {
 	http.Handle(*metricsEndpoint, prometheus.Handler())
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(`<html>
-				<head><title>Apache Exporter</title></head>
+				<head><title>Traffic Exporter</title></head>
 				<body>
 				<h1>Apache Exporter</h1>
 				<p><a href='` + *metricsEndpoint + `'>Metrics</a></p>
