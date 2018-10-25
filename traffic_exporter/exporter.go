@@ -209,6 +209,10 @@ func (e *Traffic_exporter) collect(ch chan<- prometheus.Metric) error {
 	//uptime *prometheus.Desc
 	ch <- prometheus.MustNewConstMetric(e.uptime, prometheus.CounterValue, float64(traffic_struct.Traffic.Uptime))
 
+	e.ccons.Collect(ch)
+	e.cpu.Collect(ch)
+	e.cused.Collect(ch)
+	e.mem.Collect(ch)
 	return nil
 }
 
